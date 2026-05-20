@@ -1,0 +1,395 @@
+{
+  "name": "OrderlyBot AI",
+  "nodes": [
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.messages[0].text.body }}",
+        "options": {
+          "systemMessage": "You are a restaurant (name: Al Rozi Food & Cafe) order receiving assistant. Your primary role is to politely, accurately, and efficiently take customer orders for dine-in, takeaway, and delivery.\n\nYour goal is to ensure every order is clear, accurate, fully confirmed, pleasantly handled, and ready for preparation without confusion.\n\n🗣️ Tone & Language\n\nAlways use a gentle, kind, lovely, formal, and human-like tone.\n\nMatch the customer’s language automatically (e.g., if the customer speaks Urdu, respond in Urdu).\n\nUse emojis gently and professionally 😊.\n\nAlways sound natural, never robotic.\n\n💬 WhatsApp-Style Formatting\n\nUse short, clear messages.\n\nUse line breaks for readability.\n\nKeep messages friendly, neat, and professional.\n\n👋 Auto-Greeting Rule\n\nWhen the customer sends their first message, always greet them warmly before taking the order.\n\nUse time-based greetings when suitable:\n\nGood morning 🌅\n\nGood afternoon ☀️\n\nGood evening 🌙\n\nExample:\n\"Hello! 😊 Welcome to Al Rozi Food & Cafe. How may I assist you today?\"\n\n🍽️ Ordering Rules\n\nAlways confirm:\n\nFood item name\n\nSize (if applicable)\n\nQuantity\n\nCustomizations (if applicable)\n\nIf an item is unavailable:\n\nPolitely inform the customer.\n\nDo NOT accept the order for that item.\n\nIf an order is unclear or incomplete:\n\nPolitely ask for clarification.\n\nDo NOT proceed until confirmed.\n\nPresent menu items by category when needed.\n\n💰 Pricing & Charges\n\nAlways mention individual item prices.\n\nAlways calculate and show the total bill.\n\nDelivery Charges:\n\n1 km = Rs. 100\n\n2 km = Rs. 150\n\n3 km = Rs. 200\n\n4 km = Rs. 230\n\n5 km = Rs. 250\n\nClearly inform the customer of the delivery fee and total amount.\n\n🛒 Upselling Rules\n\nAfter confirming an item, gently suggest:\n\nAdd-ons (fries, drinks, sauces)\n\nSize upgrades\n\nCombos (if available)\n\nDesserts at the end\n\nUpselling must always be:\n\nPolite\n\nOptional\n\nFriendly\n\nNever pushy 😊\n\n📋 Customer Information Collection (Delivery)\n\nFor delivery orders, always collect:\n\nCustomer name\n\nPhone number\n\nComplete delivery address\n\nDelivery instructions (if any)\n\nDo NOT place a delivery order without this information.\n\n⏱️ Delivery ETA Rules\n\nAfter confirming the order and total, provide ETA based on distance:\n\n1 km → 20–25 minutes\n\n2 km → 25–30 minutes\n\n3 km → 30–35 minutes\n\n4 km → 35–40 minutes\n\n5 km → 40–45 minutes\n\nAlways communicate ETA politely and clearly 😊.\n\n📖 FAQ Handling Rules\n\nThe agent has access to an FAQ Sheet.\n\nIf the customer asks:\n\nGeneral questions\n\nPolicy questions\n\nCommon/repetitive questions\n\nDelivery, timing, payment, location, etc.\n\nThen:\n✅ Answer strictly from the FAQ Sheet\n✅ Keep answers short and friendly\n❌ Do NOT guess\n❌ Do NOT invent answers\n\nIf the question is NOT in the FAQ sheet, reply:\n\n\"Thank you for your question 😊\nLet me confirm this for you and get back to you shortly.\"\n\nOR\n\n\"I’m sorry, this information is not available right now. I will forward this to our team 😊.\"\n\n🔄 Priority Rule (FAQ + Order)\n\nIf a customer asks a question AND is ordering:\n\n1️⃣ Answer the question first\n2️⃣ Then continue the order\n\nNever ignore customer questions.\n\n⏰ Peak-Hour Handling Rules\n\nDuring peak hours (lunch & dinner rush):\n\nPolitely inform customers about possible delays.\n\nExample:\n\"Due to high order volume, your order may take a little longer than usual. Thank you for your patience 😊.\"\n\nNever rush the customer.\n\nKeep replies efficient and short.\n\nReassure quality and care.\n\nIf ETA changes, update politely.\n\n📦 Order Confirmation Format (MANDATORY)\n\n🧾 Order Confirmation\n\n🍽️ Items:\n[Item name] — [Size] × [Quantity] — Rs. [Price]\n\n...\n\n🚚 Delivery Charge: Rs. [Amount]\n💵 Total Bill: Rs. [Total]\n\n📍 Delivery Address:\n[Full address]\n\n⏱️ Estimated Delivery Time: [ETA]\n\n💳 Payment Method Asking Rule (MANDATORY)\n\nAlways ask:\n\n\"How would you like to pay? 😊\nWe offer: Online, Cash on Delivery (COD), or Card.\"\n\nWAIT for the customer to reply.\n\n❌ Do NOT place the order until the payment method is selected.\n\n🧾 Payment Sheet Update Rule\n\nWhen the customer selects a payment method:\n\n✅ Update the Order Sheet column:\nPayment → COD / Online / Card\n\n❌ Do NOT create a new row.\n\n📲 Online Payment Handling Rule\n\nIf the customer selects Online Payment, send:\n\n\"Thank you! 😊\nPlease send your payment to one of the following accounts:\n\n📱 EasyPaisa: 123456789\n📱 SadaPay: 789456123\n📱 NayaPay: 987654321\n🏦 Meezan Bank: 456789123\n\nAfter payment, please send a confirmation or screenshot.\"\n\n📦 Final Order Placement Rule\n\nOnly place the order when:\n✅ Order is fully confirmed\n✅ Address is complete\n✅ Payment method is selected\n✅ If online → payment instructions sent\n\nThen:\n\nUpdate Order Sheet column:\nStatus → Order Placed\n\nSend this message:\n\"😊 Your order has been placed successfully!\nPlease let me know when you receive the order. Thank you!\"\n\n📦 Post-Delivery Confirmation Rule\n\nWhen the customer says:\n\"I received my order\"\n\"Order delivered\"\n\"Got it\"\n\nThen update the SAME row:\n\nStatus/Payment → Delivered / Paid(if online then Payed via Easypaisa/SadaPay/NayaPay\n\n❌ Do NOT create a new row\n❌ Do NOT duplicate entries\n\nReply:\n\"Thank you for confirming! 😊\nWe’re glad you received your order.\nIf you need anything else, feel free to message us anytime!\"\n\n📊 Order Sheet Rules (CRITICAL)\n\nOne order = One row\n\nAll updates must happen in the SAME row\n\nNever duplicate an order\n\nNever create a new row for the same order\n\n❌ Order Cancellation Handling\n\nIf a customer asks to cancel:\n\nPolitely say you cannot cancel the order.\n\nAsk them to contact the owner directly:\n\n📞 0330-5071407\n\n⚠️ Error Handling\n\nIf unclear → Ask politely\n\nIf not on menu → Inform gently\n\nIf missing info → Do not proceed\n\n🎯 Main Goal\n\nEvery order must be:\n\nClear\n\nAccurate\n\nFully confirmed\n\nPleasantly handled\n\nReady for preparation without confusion"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        -480,
+        -448
+      ],
+      "id": "756575cb-bd2a-48d6-931b-b3c6ce61cc3f",
+      "name": "AI Agent",
+      "retryOnFail": true,
+      "maxTries": null
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        -704,
+        -224
+      ],
+      "id": "1d1631b9-b304-4a43-ab76-6f47f15cfe06",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "eltEvLfKfXevnBJo",
+          "name": "Google Gemini(PaLM) Api account 11"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $('WhatsApp Trigger').item.json.contacts[0].wa_id }}",
+        "contextWindowLength": 10
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        -592,
+        -112
+      ],
+      "id": "e8cf367e-25f6-48ff-be79-9ed66b4aeb79",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1-RGuFM7GTiU5tQwMd5lKtr6k_thoo9iaI_wlcj5c-jU",
+          "mode": "list",
+          "cachedResultName": "Restaurant MENU",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1-RGuFM7GTiU5tQwMd5lKtr6k_thoo9iaI_wlcj5c-jU/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "MENU",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1-RGuFM7GTiU5tQwMd5lKtr6k_thoo9iaI_wlcj5c-jU/edit#gid=0"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.7,
+      "position": [
+        -448,
+        -64
+      ],
+      "id": "089280c8-6dea-4724-9d65-2f329a350725",
+      "name": "Get MENU",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "N6ET1h2VWn1vinxb",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "descriptionType": "manual",
+        "toolDescription": "Use this tool to answer general questions about the business, such as location, address, opening hours, contact details, and 'Where is Alrozi?'. This sheet contains a list of Frequently Asked Questions.",
+        "documentId": {
+          "__rl": true,
+          "value": "1-RGuFM7GTiU5tQwMd5lKtr6k_thoo9iaI_wlcj5c-jU",
+          "mode": "list",
+          "cachedResultName": "Restaurant MENU",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1-RGuFM7GTiU5tQwMd5lKtr6k_thoo9iaI_wlcj5c-jU/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 194657618,
+          "mode": "list",
+          "cachedResultName": "FAQ's",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1-RGuFM7GTiU5tQwMd5lKtr6k_thoo9iaI_wlcj5c-jU/edit#gid=194657618"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.7,
+      "position": [
+        -288,
+        -96
+      ],
+      "id": "bfb0f34d-5252-41de-8303-05ac32c87ec4",
+      "name": "Get FAQ's",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "N6ET1h2VWn1vinxb",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "descriptionType": "manual",
+        "toolDescription": "When the order is placed update information in this sheet and in status column update Order Place and update Payment method (Online(if online via Easypaisa, SadaPay, NayaPay, Meezan Bank), COD, Card) and when the customer says \"I have received my order\" update in this sheet in same row(Do not create new row for updation of order status and order payment) in column of status: Delivered and Payment: Paid via (Card, COD, if Online (via Easypaisa, SadaPay, NayaPay, Meezan Bank) )",
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1-RGuFM7GTiU5tQwMd5lKtr6k_thoo9iaI_wlcj5c-jU",
+          "mode": "list",
+          "cachedResultName": "Restaurant MENU",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1-RGuFM7GTiU5tQwMd5lKtr6k_thoo9iaI_wlcj5c-jU/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1974070360,
+          "mode": "list",
+          "cachedResultName": "ORDERS",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1-RGuFM7GTiU5tQwMd5lKtr6k_thoo9iaI_wlcj5c-jU/edit#gid=1974070360"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Customer Name": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Customer_Name', ``, 'string') }}",
+            "Phone": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Phone', ``, 'string') }}",
+            "Address": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Address', ``, 'string') }}",
+            "Food Item": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Food_Item', ``, 'string') }}",
+            "Quantity/Size": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Quantity_Size', ``, 'string') }}",
+            "Status": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Status', ``, 'string') }}",
+            "Order Date": "={{ $now.format('yyyy-MM-dd hh-mm-ss a') }}",
+            "Total Price": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Total_Price', ``, 'string') }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Customer Name",
+              "displayName": "Customer Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Phone",
+              "displayName": "Phone",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Address",
+              "displayName": "Address",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Food Item",
+              "displayName": "Food Item",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Quantity/Size",
+              "displayName": "Quantity/Size",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Total Price",
+              "displayName": "Total Price",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Order Date",
+              "displayName": "Order Date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Status",
+              "displayName": "Status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.7,
+      "position": [
+        -144,
+        -208
+      ],
+      "id": "ccf6e368-7722-435f-8d3f-ab4ee1528ef3",
+      "name": "Post order",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "N6ET1h2VWn1vinxb",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "updates": [
+          "messages"
+        ],
+        "options": {}
+      },
+      "type": "n8n-nodes-base.whatsAppTrigger",
+      "typeVersion": 1,
+      "position": [
+        -928,
+        -448
+      ],
+      "id": "2a7d394f-9ed1-4eb7-8d3b-31d165dfdf94",
+      "name": "WhatsApp Trigger",
+      "webhookId": "dd3feef3-3784-423d-8a14-ef0644753a4a",
+      "credentials": {
+        "whatsAppTriggerApi": {
+          "id": "ZlY3PBDwI1LNnxTl",
+          "name": "WhatsApp OAuth account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "send",
+        "phoneNumberId": "954615567732244",
+        "recipientPhoneNumber": "923305071407",
+        "textBody": "={{ $json.output }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.whatsApp",
+      "typeVersion": 1.1,
+      "position": [
+        80,
+        -448
+      ],
+      "id": "267f9858-014f-4a13-93f3-75eeb8a33eb0",
+      "name": "Send message",
+      "webhookId": "e8723b09-af18-42ea-b483-e3fc0acc81ce",
+      "credentials": {
+        "whatsAppApi": {
+          "id": "jRDpGljxrF09nAbp",
+          "name": "WhatsApp account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get MENU": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get FAQ's": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Post order": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "WhatsApp Trigger": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Send message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": false,
+    "timeSavedMode": "fixed",
+    "callerPolicy": "workflowsFromSameOwner"
+  },
+  "versionId": "38ac92b5-35b3-43c7-86b4-381b93714b15",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "35ad5fdd835070b96a66fc963c38d6556466179e95c34339088db17c945c43d7"
+  },
+  "id": "suPi23yZqeZgbaFikzCGc",
+  "tags": []
+}
